@@ -80,7 +80,7 @@ while True:
         
     #>>>checkTaskStatus(userId)
     #从Task_flight_game表中查询并返回未完成的任务，返回一个字典，
-    #分别表示{Task_id，[出发地（Addr_from ），到达地（Addr_to），任务油耗（Task_oil ），任务奖励（Task_bonus ）]}
+    #分别表示{Task_id，[出发地（Addr_from ），到达地（Addr_to），任务油耗（Task_oil），任务奖励（Task_bonus）]}
         
 
         
