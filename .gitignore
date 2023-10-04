@@ -14,3 +14,5 @@
 /.vs/flightGame/v17/.wsuo
 /.vs/slnx.sqlite
 /.vs/VSWorkspaceState.json
+*.pyc
+/.gitignore
