@@ -1,0 +1,16 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs
+/.vs/flightGame
+/.vs/flightGame/FileContentIndex
+/.vs/flightGame/FileContentIndex/5cd215b6-9d5c-4225-ad61-e06ef95b1550.vsidx
+/.vs/flightGame/FileContentIndex/8df23193-1504-40e3-9ff1-e15a75b3af69.vsidx
+/.vs/flightGame/FileContentIndex/9da0ab3b-a53a-4d27-a62a-617f34c2178d.vsidx
+/.vs/flightGame/FileContentIndex/a26e44f7-f04c-4157-b640-19f6904d2fbf.vsidx
+/.vs/flightGame/FileContentIndex/c3add70c-75ca-4856-bab2-06f76211335a.vsidx
+/.vs/flightGame/v17
+/.vs/flightGame/v17/.wsuo
+/.vs/slnx.sqlite
+/.vs/VSWorkspaceState.json
