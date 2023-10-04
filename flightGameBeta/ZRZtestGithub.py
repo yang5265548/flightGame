@@ -76,7 +76,7 @@ while True:
     fuel_tank_capacity = checkAirplaneStatus(userId)[1]
     
     #>>>checkAirportStatus(userId)
-    #将机场信息从数据库中取出来
+    #将机场信息从数据库中取出来，包括机场代号，名称，油价等（相当于游戏的地图）
         
     #>>>checkTaskStatus(userId)
     #从Task_flight_game表中查询并返回未完成的任务，返回一个字典，
