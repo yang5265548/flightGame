@@ -1,1 +1,2 @@
-111
+def zz():
+    return 1;
