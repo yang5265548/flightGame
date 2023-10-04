@@ -13,12 +13,12 @@ def excuseSql():
     );
 
 
-    def getSqlResult(sql):
-        cursor = connection.cursor();
-        cursor.execute(sql);
-        if(cursor.rowcount > 0):
-            return cursor.fetchall();
-        else:
-            return None;
+def getSqlResult(sql):
+    cursor = excuseSql().connection.cursor();
+    cursor.execute(sql);
+    if(cursor.rowcount > 0):
+        return cursor.fetchall();
+    else:
+        return None;
 
 

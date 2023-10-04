@@ -1,8 +1,9 @@
 def zz():
     return 1;
 
+import public_function.databaseConnection as c
 
-
+c.getSqlResult()
 import random
 
 # 定义一组数字
