@@ -59,7 +59,7 @@ while True:
         
 
     #----------------------------------------
-    #玩家已有账号，直接从数据库调取数据
+    #玩家已有账号，直接从数据库调取数据（尽量把游戏过程中要用到的参数都汇总写在这个地方吧。。。(＞﹏＜)）
 
     #>>>checkPlayerStatus(userId)
     #从User_flight_game表中查询并返回玩家状态，返回一个列表，分别表示[userName,current_location,current_amount]
@@ -74,6 +74,9 @@ while True:
     #比如[100,600]
     current_fuel_capacity = checkAirplaneStatus(userId)[0]
     fuel_tank_capacity = checkAirplaneStatus(userId)[1]
+    
+    #>>>checkAirportStatus(userId)
+    #将机场信息从数据库中取出来
         
     #>>>checkTaskStatus(userId)
     #从Task_flight_game表中查询并返回未完成的任务，返回一个字典，
@@ -134,6 +137,10 @@ while True:
             
 
     #---------------------------------------------------------------
+    #在游戏结束前，将游戏结果（玩家位置，钱数等信息）存入数据库。
+    #>>>syncDatabase(userId,current_location,......)
+
+    
     #游戏结束
     print("Game over.")
 
