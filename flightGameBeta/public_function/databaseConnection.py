@@ -1,14 +1,33 @@
 import mysql.connector
 
-connection = mysql.connector.connect(
-        host='127.0.0.1',
-        port=3306,
-        database='metropolia',
-        user='root',
-        password='123456',
-        autocommit=True
-        );
+def getProperties(path):
+    try:
+        with open(path, 'r', encoding='utf-8') as file:
+            content = file.readlines()
+            list = [];
+            for i in content:
+                list.append(tuple(i.split("=")))
+                dataDict = dict(list);
+            return dataDict;
+        # 在这里处理文件内容
+    except FileNotFoundError:
+        print("FileNotFoundError")
+    except PermissionError:
+        print("PermissionError")
+    except Exception as e:
+        print(f"UnknowError: {str(e)}")
+path = '../config/databaseConnection.properties'
+properties = getProperties(path)
 
+connection = mysql.connector
+connection.connect(
+        host=properties.get('host'),
+        port=properties.get('port'),
+        database=properties.get('database'),
+        user=properties.get('user'),
+        password=properties.get('password'),
+        autocommit=True
+        )
 
 def getResultList(sql):
     cursor = connection.cursor();
@@ -19,12 +38,11 @@ def getResultList(sql):
     else:
         return None;
 
-def oprateData(insert_sql):
+def oprateData(sql):
     cursor = connection.cursor();
     try:
         # 执行插入操作
-        cursor.execute(insert_sql)
-
+        cursor.execute(sql)
         connection.commit()
         print("数据插入成功")
         return True
