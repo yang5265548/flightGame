@@ -19,9 +19,27 @@ def getResultList(sql):
     else:
         return None;
 
+def oprateData(insert_sql):
+    cursor = connection.cursor();
+    try:
+        # 执行插入操作
+        cursor.execute(insert_sql)
+
+        connection.commit()
+        print("数据插入成功")
+        return True
+    except Exception as e:
+        connection.rollback()
+        print("数据插入失败:", str(e))
+        return False
+    finally:
+        cursor.close()
+        connection.close()
 
 # demo
-# import public_function.databaseConnection as c
-#
-# sql = 'select * from airport';
-# print(c.getResultList(sql));
+# import public_function.databaseConnection as database
+# sql = 'insert into zzz (game_id, goal_id) values(3,7)';
+# find data
+# print(database.getResultList(sql));
+# oprate data
+# print(database.oprateData(sql));
