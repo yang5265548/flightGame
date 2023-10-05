@@ -3,10 +3,10 @@ import mysql.connector
 def getProperties(path):
     try:
         with open(path, 'r', encoding='utf-8') as file:
-            content = file.readlines()
+            content = file.readlines();
             list = [];
             for i in content:
-                list.append(tuple(i.split("=")))
+                list.append(tuple(i.split("=")));
                 dataDict = dict(list);
             return dataDict;
         # 在这里处理文件内容
@@ -16,8 +16,8 @@ def getProperties(path):
         print("PermissionError")
     except Exception as e:
         print(f"UnknowError: {str(e)}")
-path = '../config/databaseConnection.properties'
-properties = getProperties(path)
+path = '../config/databaseConnection.properties';
+properties = getProperties(path);
 
 connection = mysql.connector
 connection.connect(
@@ -27,7 +27,7 @@ connection.connect(
         user=properties.get('user'),
         password=properties.get('password'),
         autocommit=True
-        )
+        );
 
 def getResultList(sql):
     cursor = connection.cursor();
