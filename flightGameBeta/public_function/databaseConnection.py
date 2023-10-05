@@ -1,5 +1,6 @@
 import mysql.connector
 
+
 def getProperties(path):
     try:
         with open(path, 'r', encoding='utf-8') as file:
@@ -16,18 +17,21 @@ def getProperties(path):
         print("PermissionError")
     except Exception as e:
         print(f"UnknowError: {str(e)}")
+
+
 path = '../config/databaseConnection.properties';
 properties = getProperties(path);
 
 connection = mysql.connector
 connection.connect(
-        host=properties.get('host'),
-        port=properties.get('port'),
-        database=properties.get('database'),
-        user=properties.get('user'),
-        password=properties.get('password'),
-        autocommit=True
-        );
+    host=properties.get('host'),
+    port=properties.get('port'),
+    database=properties.get('database'),
+    user=properties.get('user'),
+    password=properties.get('password'),
+    autocommit=True
+);
+
 
 def getResultList(sql):
     cursor = connection.cursor();
@@ -37,6 +41,7 @@ def getResultList(sql):
         return result;
     else:
         return None;
+
 
 def oprateData(sql):
     cursor = connection.cursor();
