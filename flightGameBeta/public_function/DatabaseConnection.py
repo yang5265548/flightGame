@@ -1,9 +1,9 @@
 import mysql.connector
-import flightGameBeta.public_function.getPropertiesHandler as p
+import flightGameBeta.public_function.GetPropertiesHandler as p
 import os
 
 # 必须要用os拼路径,否则路径会找不到
-path = os.path.join('config','mysql.properties');
+path = os.path.join('config','Mysql.properties');
 properties = p.getProperties(path);
 connection = mysql.connector.connect(
     host=properties.get('host'),
@@ -37,14 +37,12 @@ def oprateData(sql):
         connection.rollback()
         print("数据插入失败:", str(e))
         return False
-    finally:
-        cursor.close()
-        connection.close()
+
 
 
 #------------------------------------------------------------------------------
 # example
-# import flightGameBeta.public_function.databaseConnection as fun
+# import flightGameBeta.public_function.DatabaseConnection as fun
 
 # select
 # sql = 'select * from airport';
