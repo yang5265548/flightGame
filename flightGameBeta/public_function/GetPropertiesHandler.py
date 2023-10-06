@@ -1,4 +1,4 @@
-# Properties to dict
+# Properties to  dict
 def getProperties(path):
     try:
         with open(path, 'r', encoding='utf-8') as file:
