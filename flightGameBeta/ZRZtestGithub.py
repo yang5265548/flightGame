@@ -28,10 +28,15 @@ def checkIfUserIdAlreadyExists(userId):
         a = False
     return a
 
-#
-
-
-
+#---------------------------------------------------------------------
+#Task_flight_game表的查询
+def checkTaskStatus(userId):
+    sql = "select Task_id, Addr_from, Addr_to from Task_flight_game where User_id = '" + userId +"'"
+    result = getResultList(sql)
+    if result is not None:
+        return result
+    else:
+        print("Check task status ERROR!")
 
 
 

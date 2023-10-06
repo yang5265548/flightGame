@@ -52,3 +52,5 @@ def oprateData(sql):
 # sql = 'insert into zzz (game_id, goal_id) values(3,7)';
 # oprate data
 # print(fun.oprateData(sql));
+
+
