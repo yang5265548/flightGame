@@ -61,7 +61,12 @@ def settlement(taskId, userId, oilConsume, money, weatherId):
 
 
 #  查询任务类型表
-def selectTaskType():
-    sql = "";
+def selectTaskType(userId):
+    sql = "select Task_id, Addr_from, Addr_to from Task_flight_game where User_id = '" + userId +"'"
+    result = getResultList(sql)
+    if result is not None:
+        return result
+    else:
+        print("Check task status ERROR!")
 #  查询天气表
 #  计算油耗(+随即天气油耗)
