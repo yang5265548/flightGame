@@ -63,7 +63,7 @@ def settlement(taskId, userId, oilConsume, money, weatherId):
 #  查询任务类型表
 def selectTaskType(userId):
     sql = "select Task_id, Addr_from, Addr_to from Task_flight_game where User_id = '" + userId +"'"
-    result = getResultList(sql)
+    result = fun.getResultList(sql)
     if result is not None:
         return result
     else:
