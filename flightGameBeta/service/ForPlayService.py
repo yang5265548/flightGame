@@ -70,3 +70,10 @@ def selectTaskType(userId):
         print("Check task status ERROR!")
 #  查询天气表
 #  计算油耗(+随即天气油耗)
+
+
+
+
+#  向用户展示任务情况
+
+#  向用户展示飞机状况
