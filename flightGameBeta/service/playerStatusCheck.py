@@ -55,3 +55,16 @@ def checkAirplaneStatus(User_id):
     else:
         print("Check Airplane status ERROR!")
         
+#输出结果：[current_fuel_capacity]
+
+
+#-------------------------------------------------------------------------
+#打印玩家状态
+def printPlayerStatus():
+    result = checkPlayerStatus(User_id)
+    print(f"Hello, {result[0]}. You are at {result[1]}. You have {result[2]} money in your poket.")
+    
+
+#--------------------------------------------------------------------------
+    
+        
