@@ -17,13 +17,41 @@ def checkTaskStatus(User_id,Task_id,Is_done):
         sql3 = " and Is_done = " + Is_done
     else:
         sql3 = None
+    
+    if User_id  is not None or Task_id is not None or Is_done is not None:
+        sql = "select User_id, Task_id, Addr_from, Addr_to, Is_done from Task_flight_game where User_id like '%'" + sql1 + sql2 + sql3 +"';"
+        result = fun.getResultList(sql)
+        if result is not None:
+            return result
+        else:
+            print("Check task status ERROR!")
+    else:
+        print("Check task status ERROR!")
+        
+#输出结果：[(User_id, Task_id, Addr_from, Addr_to, Is_done)]
+#输出结果示例[(1,1,00A,00B,true),(2,2,00C,00D,false)]
+        
 
-    sql = "select User_id, Task_id, Addr_from, Addr_to, Is_done from Task_flight_game where User_id like '%'" + sql1 + sql2 + sql3 +"';"
+#----------------------------------------------------------------------
+#查询User_flight_game表，查询玩家状态
+def checkPlayerStatus(User_id):
+    sql = "select userName, current_location, current_amount from User_flight_game where User_id = '" + User_id + "';"
     result = fun.getResultList(sql)
     if result is not None:
         return result
     else:
-        print("Check task status ERROR!")
-
-
-
+        print("Check player status ERROR!")
+        
+#输出结果：[(userName, current_location, current_amount)]
+#输出结果示例[(ZhuRunzhou,00A,2000)]
+        
+#------------------------------------------------------------------------
+#查询User_airplane_flight_game表，查询玩家飞机状态
+def checkAirplaneStatus(User_id):
+    sql = "select current_fuel_capacity from User_airplane_flight_game where User_id = '" + User_id + "';"
+    result = fun.getResultList(sql)
+    if result is not None:
+        return result
+    else:
+        print("Check Airplane status ERROR!")
+        
