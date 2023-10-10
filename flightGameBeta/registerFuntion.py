@@ -57,17 +57,15 @@ def randAirportFromTo(airportlist):
     fromlist=random.sample(airportlist,5)
     tolist = []
     fromToList=[]
-    fromToDict={}
+
     for list in airportlist:
         if list not in fromlist:
             tolist.append(list)
     for i in range(5):
-        print(fromlist[i])
-        print(tolist[i])
+        fromToDict={}
         fromToDict["from"]=fromlist[i]
         fromToDict["to"]=tolist[i]
         fromToList.append(fromToDict)
-        print(fromToList)
 
     # print(fromlist)
     # print(tolist)
@@ -86,13 +84,20 @@ def randUserTask(userid,fromTolist):
     # 随机获取5个天气，存入list
     getWeathersql="select weather_id from weather_flight_game order by rand() limit 5"
     weatherResult = function.getResultList(getWeathersql)
+    print("~~~~~~~")
+    print(weatherResult)
+    print("~~~~~~~")
     weatherList=[]
     if weatherResult != None:
         for result in weatherResult:
             weatherList.append(result)
+    print(taskList)
+    print(weatherList)
 #     根据随机出来的task，查出他的油耗和金钱比例，进行计算 需要思考是通过for循环来实现一条一条查询，还是通过sql直接把结果都查出来
     for i in range(5):
-        print(taskList[i],weatherList[i],fromTolist[i])
+        # tasksql=f"insert into task_flight_game(user_id, task_id, weather_id, addr_from, addr_to, is_done) values ({userid},{taskList[i]},{weatherList[i]},{fromTolist[i]['from']},{fromTolist[i]['to']},'flase')"
+        # function.oprateData(tasksql)
+        print(taskList[i],weatherList[i],fromTolist[i],fromTolist[i]["from"],fromTolist[i]["to"])
 
 # 查询出用户国家的所有未关闭的机场，并打乱顺序，将所有信息插入list，并返回该list
 def checkCountryList(countryName):
@@ -120,8 +125,7 @@ def checkCountryList(countryName):
 list=checkCountryList("United States")
 tenairportslist=get10AirportsFromCountryList(list)
 fromtolist=randAirportFromTo(tenairportslist)
-# print(fromtolist)
-# randUserTask(11,fromtolist)
+randUserTask(11,fromtolist)
 
 # # print("-----------------------")
 # # for i in list:
