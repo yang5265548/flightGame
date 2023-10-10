@@ -60,7 +60,7 @@ def checkAirplaneStatus(User_id):
 
 #-------------------------------------------------------------------------
 #´òÓ¡Íæ¼Ò×´Ì¬
-def printPlayerStatus():
+def printPlayerStatus(User_id):
     result = checkPlayerStatus(User_id)
     print(f"Hello, {result[0]}. You are at {result[1]}. You have {result[2]} money in your poket.")
     return
@@ -68,7 +68,7 @@ def printPlayerStatus():
 
 #--------------------------------------------------------------------------
 #´òÓ¡·É»ú×´Ì¬
-def printPlaneStatus():
+def printPlaneStatus(User_id):
     result = checkAirplaneStatus(User_id)
     print(f"Hello, you have {result[0]}L fuel in your tank.")
     return
