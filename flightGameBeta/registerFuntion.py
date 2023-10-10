@@ -36,19 +36,19 @@ def checkAllCountryListStartWith(string):
     if result != None:
         for row in result:
             allCountryList.append(row)
-    print(allCountryList)
+    # print(allCountryList)
     return allCountryList
 
 # 从查出的该国家机场列表中，随机取出十个城市
 def get10AirportsFromCountryList(countryList):
     tenAirportsList=random.sample(countryList,10)
-    print(tenAirportsList)
+    # print(tenAirportsList)
 
     airportlist=[]
     # 拿到10个机场的list
     for list in tenAirportsList:
         airportlist.append(list[2])
-    print(airportlist)
+    # print(airportlist)
     return airportlist
 
 
@@ -62,19 +62,22 @@ def randAirportFromTo(airportlist):
         if list not in fromlist:
             tolist.append(list)
     for i in range(5):
+        print(fromlist[i])
+        print(tolist[i])
         fromToDict["from"]=fromlist[i]
         fromToDict["to"]=tolist[i]
         fromToList.append(fromToDict)
-    return fromToList
+        print(fromToList)
+
     # print(fromlist)
     # print(tolist)
     # print(airportlist)
     # print(fromToList)
-
+    return fromToList
 # 随机生成任务，与用户信息绑定，入参userid，fromtolist
 def randUserTask(userid,fromTolist):
     # 随机获取5个任务，存入list
-    getTasksql="select task_id from game_task_flight_game order by rand() limit 5"
+    getTasksql="select task_id from task_type_flight_game order by rand() limit 5"
     taskResult = function.getResultList(getTasksql)
     taskList=[]
     if taskResult != None:
@@ -88,6 +91,8 @@ def randUserTask(userid,fromTolist):
         for result in weatherResult:
             weatherList.append(result)
 #     根据随机出来的task，查出他的油耗和金钱比例，进行计算 需要思考是通过for循环来实现一条一条查询，还是通过sql直接把结果都查出来
+    for i in range(5):
+        print(taskList[i],weatherList[i],fromTolist[i])
 
 # 查询出用户国家的所有未关闭的机场，并打乱顺序，将所有信息插入list，并返回该list
 def checkCountryList(countryName):
@@ -114,7 +119,10 @@ def checkCountryList(countryName):
 
 list=checkCountryList("United States")
 tenairportslist=get10AirportsFromCountryList(list)
-randAirportFromTo(tenairportslist)
+fromtolist=randAirportFromTo(tenairportslist)
+# print(fromtolist)
+# randUserTask(11,fromtolist)
+
 # # print("-----------------------")
 # # for i in list:
 # #     print(i)
