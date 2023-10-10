@@ -11,7 +11,7 @@ def checkPassword(username,password):
     flag=True
     while flag:
         checkPassword=sha1password(password)
-        password=function.getResultList(f"select {password} from user_flight_game where username='{username}'")
+        password=function.getResultList(f"select password from user_flight_game where username='{username}'")
         if password==checkPassword:
             print("password is right")
             flag=False

@@ -27,12 +27,17 @@ def register():
     return user
 
 
-# register()
-#     # if checkResult==None:
-#     #     ...
-#     # else:
+# 根据首字母列出所有国家,按照机场数量降序排列
 
-
+def checkAllCountryListStartWith(string):
+    quaryAllCountryListSQL="select DISTINCT(country_name) from airport_flight_game_copy1 where country_name like '"+string+"%' group by country_name order by count(*) desc"
+    result = function.getResultList(quaryAllCountryListSQL)
+    allCountryList = []
+    if result != None:
+        for row in result:
+            allCountryList.append(row)
+    print(allCountryList)
+    return allCountryList
 
 # 从查出的该国家机场列表中，随机取出十个城市
 def get10AirportsFromCountryList(countryList):
@@ -66,6 +71,23 @@ def randAirportFromTo(airportlist):
     # print(airportlist)
     # print(fromToList)
 
+# 随机生成任务，与用户信息绑定，入参userid，fromtolist
+def randUserTask(userid,fromTolist):
+    # 随机获取5个任务，存入list
+    getTasksql="select task_id from game_task_flight_game order by rand() limit 5"
+    taskResult = function.getResultList(getTasksql)
+    taskList=[]
+    if taskResult != None:
+        for result in taskResult:
+            taskList.append(result)
+    # 随机获取5个天气，存入list
+    getWeathersql="select weather_id from weather_flight_game order by rand() limit 5"
+    weatherResult = function.getResultList(getWeathersql)
+    weatherList=[]
+    if weatherResult != None:
+        for result in weatherResult:
+            weatherList.append(result)
+#     根据随机出来的task，查出他的油耗和金钱比例，进行计算 需要思考是通过for循环来实现一条一条查询，还是通过sql直接把结果都查出来
 
 # 查询出用户国家的所有未关闭的机场，并打乱顺序，将所有信息插入list，并返回该list
 def checkCountryList(countryName):
@@ -76,7 +98,6 @@ def checkCountryList(countryName):
      # dict={}
      if result !=None:
        for row in result:
-           print(row)
            countryList.append(row)
            # 以下代码用来将list存入dict
            # dict["airport_id"]=row[0]
@@ -94,7 +115,7 @@ def checkCountryList(countryName):
 list=checkCountryList("United States")
 tenairportslist=get10AirportsFromCountryList(list)
 randAirportFromTo(tenairportslist)
-# print("-----------------------")
-# for i in list:
-#     print(i)
-
+# # print("-----------------------")
+# # for i in list:
+# #     print(i)
+# checkAllCountryListStartWith("U")
