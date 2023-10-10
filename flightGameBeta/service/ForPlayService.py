@@ -1,6 +1,7 @@
 import flightGameBeta.public_function.DatabaseConnection as fun
 import random
 from geopy import distance
+import PlayerStatusCheckService as rz
 
 # author:zzy
 
@@ -9,6 +10,7 @@ def settlement(taskId, userId, weatherId):
     #计算天气加成
     #taskId获取任务数据
     # 任务里出发机场经纬度
+    taskDetail = rz.checkTaskStatus(taskId);
     fromAirport = (1,2);
     # 任务里到达机场经纬度
     toAirport = (3, 4);
@@ -58,7 +60,7 @@ def getRandomWeather(Weather_id):
 
 #  通过任务id去找到任务类型表拿到公里油耗和公里金钱
 def selectTaskType(taskId):
-    sql = f"select task_id, task_name, bonus_per_km, oil_consumption from game_task_flight_game where task_id = '{taskId}'";
+    sql = f"select task_id, task_name, bonus_per_km, oil_consumption from task_type_flight_game where task_id = '{taskId}'";
     result = fun.getResultList(sql);
     if result is not None:
         return result;
