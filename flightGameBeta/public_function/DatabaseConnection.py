@@ -3,7 +3,7 @@ import flightGameBeta.public_function.GetPropertiesHandler as p
 import os
 
 # 必须要用os拼路径, 否则路径会找不到2
-path = os.path.join('config','Mysql.properties');
+path = os.path.join('../config', 'Mysql.properties');
 properties = p.getProperties(path);
 connection = mysql.connector.connect(
     host=properties.get('host'),
