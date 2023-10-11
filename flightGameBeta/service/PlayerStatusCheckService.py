@@ -2,31 +2,13 @@ import flightGameBeta.public_function.DatabaseConnection as fun
 
 #---------------------------------------------------------------------
 #Task_flight_game表的查询,查询任务情况
-def checkTaskStatus(User_id,Task_id,Is_done):
-    if User_id  is not None:
-        sql1 = " and User_id = '" + User_id +"'"
-    else:
-        sql1 = None
-        
-    if Task_id is not None:
-        sql2 = " and Task_id = '" + Task_id + "'"
-    else:
-        sql2 = None
-        
-    if Is_done is not None:
-        sql3 = " and Is_done = '" + Is_done + "'"
-    else:
-        sql3 = None
-    
-    if User_id  is not None or Task_id is not None or Is_done is not None:
-        sql = "select User_id, Task_id, Addr_from, Addr_to, Is_done from Task_flight_game where User_id like '%'" + sql1 + sql2 + sql3 +";"
-        result = fun.getResultList(sql)
-        if result is not None:
-            return result
-        else:
-            print("Check task status ERROR!")
-    else:
-        print("Check task status ERROR!")
+def checkTaskStatus(user_id,is_done):
+    sql = (f"select f.User_id, f.Task_id, f.Addr_from, f.Addr_to, f.Is_done, t.task_name "
+           f"from Task_flight_game f left join task_type_flight_game t on t.task_id = f.task_id "
+           f"where user_id= {user_id} and is_done = {is_done}")
+    result = fun.getResultList(sql)
+    return result
+
         
 #输出结果：[(User_id, Task_id, Addr_from, Addr_to, Is_done)]
 #输出结果示例[(1,1,00A,00B,true),(2,2,00C,00D,false)]
@@ -35,7 +17,7 @@ def checkTaskStatus(User_id,Task_id,Is_done):
 #----------------------------------------------------------------------
 #查询User_flight_game表，查询玩家状态
 def checkPlayerStatus(User_id):
-    sql = "select userName, current_location, current_amount from User_flight_game where User_id = '" + User_id + "';"
+    sql = "select userName, current_location, current_amount, log_time from User_flight_game where User_id = '" + User_id + "';"
     result = fun.getResultList(sql)
     if result is not None:
         return result

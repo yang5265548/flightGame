@@ -1,6 +1,6 @@
 import random
-import DatabaseConnection as function
-import passwordtool as sha1
+import flightGameBeta.public_function.DatabaseConnection as function
+import flightGameBeta.public_function.passwordtool as sha1
 
 # 注册时让用户输入用户名密码，返回用户名和加密后的密码
 
@@ -112,10 +112,10 @@ def checkCountryList(countryName):
     return countryList
 
 
-list = checkCountryList("United States")
-tenairportslist = get10AirportsFromCountryList(list)
-fromtolist = randAirportFromTo(tenairportslist)
-randUserTask(11, fromtolist)
+# list = checkCountryList("United States")
+# tenairportslist = get10AirportsFromCountryList(list)
+# fromtolist = randAirportFromTo(tenairportslist)
+# randUserTask(11, fromtolist)
 
 # # print("-----------------------")
 # # for i in list:

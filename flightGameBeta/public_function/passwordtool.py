@@ -1,5 +1,5 @@
 import hashlib
-import  DatabaseConnection as function
+import flightGameBeta.public_function.DatabaseConnection as function
 # 用户密码加密
 def sha1password(password):
     passwordSha1 = hashlib.sha1(password.encode("utf-8")).hexdigest()
