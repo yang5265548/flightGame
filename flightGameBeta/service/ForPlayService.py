@@ -12,7 +12,7 @@ def settlement(taskId):
     # taskId获取任务数据
     # 任务里出发机场经纬度
     taskDetail = getFromToAddr(taskId);
-    print(taskDetail)
+    # print(taskDetail)
     userId = taskDetail[0][0];
     taskTypeId = taskDetail[0][1];
     weatherId = taskDetail[0][2];
@@ -37,7 +37,7 @@ def settlement(taskId):
 
     # 通过天气id获取天气加成油耗和金币
     weatherDetail = getRandomWeather(weatherId);
-    print(weatherDetail)
+    # print(weatherDetail)
     # 基本油耗金币与天气油耗金币计算出最后油耗金币
     OilConsume = basicOilConsume * (1 - float(weatherDetail[0][3]));
     Bounds = basicBounds * (1 + float(weatherDetail[0][4]));

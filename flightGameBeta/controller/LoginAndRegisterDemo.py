@@ -15,6 +15,9 @@ def login(choice, username, password):
             password = input("please enter your password: ");
             result = LogInService.user_exist(username, password);
             result = loginAgain(result);
+        elif(choice == '2'):
+            uplist = RegitsterService.register();
+            result = login(1, uplist[0], uplist[1]);
     else:
             result = LogInService.user_exist(username, password);
             result = loginAgain(result);
@@ -63,26 +66,36 @@ def fly(user):
         # fly()
 
 
-#登陆
-# slidePrint("✈✈✈✈✈✈✈✈✈✈✈✈✈welcome to Emergency transportation✈✈✈✈✈✈✈✈✈✈✈✈✈")
-# choice = input("1. log in                   2. register\nplease input your choice:");
-# userDetail = login(choice, None,None);
-# slidePrint("✈✈✈✈✈✈✈✈✈login success✈✈✈✈✈✈✈✈✈")
+#login 1
+slidePrint("✈✈✈✈✈✈✈✈✈✈✈✈✈welcome to Emergency transportation✈✈✈✈✈✈✈✈✈✈✈✈✈")
+choice = input("1. log in                   2. register\nplease input your choice:");
+userDetail = login(choice, None,None);
+slidePrint("✈✈✈✈✈✈✈✈✈login success✈✈✈✈✈✈✈✈✈")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # 判断是不是新用户
 # user = userDetail[0];
-user = [1, 2, 3, 4, 5, 6];
+# user = [1, 2, 3, 4, 5, 6];
 
 
 # print(userDetail)
 
+#随机方法
 
 
 
-
-
-
-
-
-
-# if(choice == '2'):
 

@@ -18,7 +18,7 @@ def register():
         password = input("the pass word is not same,please enter password again: ")
         passwordCheck = input("please enter your password again: ")
     # 此时已经已经获得用户名，密码，
-    print(username, password, passwordCheck)
+    # print(username, password, passwordCheck)
     # 给用户密码进行加密
     passwordSha1 = sha1.sha1password(password)
     insertsql = f"insert into flight_game.user_flight_game(username,password) values('{username}','{passwordSha1}')"
@@ -27,6 +27,7 @@ def register():
     # # 将用户名和密码插入dic 并返回，这个返回值可以删除，目前还没确定
     # user = {"username": username, "password": passwordSha1}
     # return user
+    return [username,password];
 
 # 根据首字母列出所有国家,按照机场数量降序排列
 
@@ -112,12 +113,11 @@ def checkCountryList(countryName):
     return countryList
 
 
-# list = checkCountryList("United States")
-# tenairportslist = get10AirportsFromCountryList(list)
-# fromtolist = randAirportFromTo(tenairportslist)
-# randUserTask(11, fromtolist)
+
 
 # # print("-----------------------")
 # # for i in list:
 # #     print(i)
 # checkAllCountryListStartWith("U")
+
+# register()

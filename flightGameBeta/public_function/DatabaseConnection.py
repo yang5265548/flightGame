@@ -31,11 +31,11 @@ def oprateData(sql):
         # 执行插入操作
         cursor.execute(sql)
         connection.commit()
-        print("数据插入成功")
+        print("success")
         return True
     except Exception as e:
         connection.rollback()
-        print("数据插入失败:", str(e))
+        print("error:", str(e))
         return False
 
 
