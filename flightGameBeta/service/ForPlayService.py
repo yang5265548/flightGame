@@ -2,6 +2,7 @@ import flightGameBeta.public_function.DatabaseConnection as fun
 import random
 from geopy import distance
 import math
+import PlayerStatusCheckService as rz
 
 
 # author:zzy
@@ -43,6 +44,9 @@ def settlement(taskId):
     Bounds = basicBounds * (1 + float(weatherDetail[0][4]));
     # 向task表写入当前任务的油耗,金钱
     result = updateTaskCurrentOilAndMoney(OilConsume, Bounds, taskId, userId, weatherId);
+
+    #修改燃油量
+    rz.updateUserAirplaneFlightGame(userId, 0, OilConsume, 0)
 
     # 向用户详情表写入current_amount ,current_location
     if(result is True):
