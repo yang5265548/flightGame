@@ -37,9 +37,11 @@ def checkAllCountryListStartWith(string):
     allCountryList = []
     if result != None:
         for row in result:
-            allCountryList.append(row)
-    # print(allCountryList)
+         allCountryList.append(row[0])
+    print(allCountryList)
     return allCountryList
+
+# 从国家列表中，让用户选择一个国家，然后输出查询出该国家的所有机场
 
 
 # 从查出的该国家机场列表中，随机取出十个城市
@@ -51,7 +53,7 @@ def get10AirportsFromCountryList(countryList):
     # 拿到10个机场的list
     for list in tenAirportsList:
         airportlist.append(list[2])
-    # print(airportlist)
+    print(airportlist)
     return airportlist
 
 
@@ -95,8 +97,14 @@ def randUserTask(userid, fromTolist):
             weatherList.append(result[0])
     #     根据随机出来的task，查出他的油耗和金钱比例，进行计算 需要思考是通过for循环来实现一条一条查询，还是通过sql直接把结果都查出来
     for i in range(5):
-        tasksql=f"insert into task_flight_game(user_id, task_id, weather_id, addr_from, addr_to, is_done) values ({userid},{taskList[i]},{weatherList[i]},'{fromTolist[i]['from']}','{fromTolist[i]['to']}',0)"
+        str1=f"{fromTolist[i]['from']}"
+        str2=f"{fromTolist[i]['to']}"
+        fromList=str1.replace('\'','\\\'')
+        toList=str2.replace('\'','\\\'')
+        tasksql=f"insert into task_flight_game(user_id, task_id, weather_id, addr_from, addr_to, is_done) values ({userid},{taskList[i]},{weatherList[i]},'{fromList}','{toList}',0)"
         function.oprateData(tasksql)
+
+    initUserAirplane(userid)
 
 
 
@@ -113,11 +121,19 @@ def checkCountryList(countryName):
     return countryList
 
 
-
+# 将用户飞机初始化
+def initUserAirplane(userid):
+    sql=f"insert into user_airplane_flight_game(userid,airplane_id, current_fuel_capacity) values ({userid},1,'1000000')"
+    function.oprateData(sql)
 
 # # print("-----------------------")
 # # for i in list:
 # #     print(i)
-# checkAllCountryListStartWith("U")
-
 # register()
+countryList=checkCountryList("United States")
+airportlist=get10AirportsFromCountryList(countryList)
+fromToList=randAirportFromTo(airportlist)
+randUserTask(19,fromToList)
+
+
+
