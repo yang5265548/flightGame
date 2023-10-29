@@ -130,10 +130,10 @@ def initUserAirplane(userid):
 # # for i in list:
 # #     print(i)
 # register()
-countryList=checkCountryList("United States")
-airportlist=get10AirportsFromCountryList(countryList)
-fromToList=randAirportFromTo(airportlist)
-randUserTask(19,fromToList)
+# countryList=checkCountryList("United States")
+# airportlist=get10AirportsFromCountryList(countryList)
+# fromToList=randAirportFromTo(airportlist)
+# randUserTask(19,fromToList)
 
 
 

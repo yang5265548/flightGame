@@ -1,5 +1,4 @@
 import random
-
 import flightGameBeta.public_function.DatabaseConnection as fun
 
 
@@ -8,9 +7,9 @@ import flightGameBeta.public_function.DatabaseConnection as fun
 # if addOrMinus == 1  minus oil
 def updateUserAirplaneFlightGame(userid, airplane_type_id, fuel, addOrMinus):
     if(addOrMinus == 0):
-        sql = f"update user_airplane_flight_game set current_fuel_capacity = current_fuel_capacity - {fuel} where userid = {userid} and airplane_id = {airplane_type_id};"
+        sql = f"update user_airplane_flight_game set current_fuel_capacity = current_fuel_capacity - {fuel} where userid = {userid} and airport_id = {airplane_type_id};"
     elif(addOrMinus == 1):
-        sql = f"update user_airplane_flight_game set current_fuel_capacity = current_fuel_capacity + {fuel} where userid = {userid} and airplane_id = {airplane_type_id};"
+        sql = f"update user_airplane_flight_game set current_fuel_capacity = current_fuel_capacity + {fuel} where userid = {userid} and airport_id = {airplane_type_id};"
     fun.getResultList(sql)
 
 
@@ -139,3 +138,6 @@ def checkStatus(uerId):
             printTaskStatus(uerId)
         else:
             break
+
+
+# updateUserAirplaneFlightGame("1",0,1,1)

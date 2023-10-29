@@ -3,7 +3,7 @@ import flightGameBeta.service.ForPlayService as ForPlayService
 import flightGameBeta.service.LogInService as LogInService
 import flightGameBeta.service.PlayerStatusCheckService as PlayerStatusCheckService
 import flightGameBeta.service.RegitsterService as RegitsterService
-import  flightGameBeta.public_function.DatabaseConnection
+import flightGameBeta.public_function.DatabaseConnection
 
 def login(choice, username, password):
     if(username is None and password is None):
@@ -67,10 +67,10 @@ def fly(user):
 
 
 #login 1
-slidePrint("✈✈✈✈✈✈✈✈✈✈✈✈✈welcome to Emergency transportation✈✈✈✈✈✈✈✈✈✈✈✈✈")
-choice = input("1. log in                   2. register\nplease input your choice:");
-userDetail = login(choice, None,None);
-slidePrint("✈✈✈✈✈✈✈✈✈login success✈✈✈✈✈✈✈✈✈")
+# slidePrint("✈✈✈✈✈✈✈✈✈✈✈✈✈welcome to Emergency transportation✈✈✈✈✈✈✈✈✈✈✈✈✈")
+# # choice = input("1. log in                   2. register\nplease input your choice:");
+# # userDetail = login(choice, None,None);
+# slidePrint("✈✈✈✈✈✈✈✈✈login success✈✈✈✈✈✈✈✈✈")
 
 
 

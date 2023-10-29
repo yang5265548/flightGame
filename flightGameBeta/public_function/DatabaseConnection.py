@@ -3,7 +3,7 @@ import flightGameBeta.public_function.GetPropertiesHandler as p
 import os
 
 # 必须要用os拼路径, 否则路径会找不到2
-path = os.path.join('../config', 'Mysql.properties');
+path = os.path.join('../config', 'mysql.properties');
 properties = p.getProperties(path);
 connection = mysql.connector.connect(
     host=properties.get('host'),
@@ -42,15 +42,15 @@ def oprateData(sql):
 
 #------------------------------------------------------------------------------
 # example
-# import flightGameBeta.public_function.DatabaseConnection as fun
+import flightGameBeta.public_function.DatabaseConnection as fun
 
 # select
 # sql = 'select * from airport';
 # print(fun.getResultList(sql));
 
-# operate
+# # operate
 # sql = 'insert into zzz (game_id, goal_id) values(3,7)';
-# oprate data
+# # oprate data
 # print(fun.oprateData(sql));
 
 

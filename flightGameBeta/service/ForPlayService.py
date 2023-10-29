@@ -2,7 +2,7 @@ import flightGameBeta.public_function.DatabaseConnection as fun
 import random
 from geopy import distance
 import math
-import PlayerStatusCheckService as rz
+import flightGameBeta.service.PlayerStatusCheckService as rz
 
 
 # author:zzy
