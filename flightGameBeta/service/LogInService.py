@@ -11,4 +11,9 @@ def user_exist(username, password):
 
 
 
+def user_exist_mi(username, password):
+
+    sql = f"select * from user_flight_game where username='{username}' and password='{password}'";
+    result = function.getResultList(sql)
+    return result;
 

@@ -68,8 +68,8 @@ def fly(user):
 
 #login 1
 # slidePrint("✈✈✈✈✈✈✈✈✈✈✈✈✈welcome to Emergency transportation✈✈✈✈✈✈✈✈✈✈✈✈✈")
-# # choice = input("1. log in                   2. register\nplease input your choice:");
-# # userDetail = login(choice, None,None);
+# choice = input("1. log in                   2. register\nplease input your choice:");
+# userDetail = login(choice, None,None);
 # slidePrint("✈✈✈✈✈✈✈✈✈login success✈✈✈✈✈✈✈✈✈")
 
 

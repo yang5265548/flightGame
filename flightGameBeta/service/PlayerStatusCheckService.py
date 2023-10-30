@@ -7,9 +7,9 @@ import flightGameBeta.public_function.DatabaseConnection as fun
 # if addOrMinus == 1  minus oil
 def updateUserAirplaneFlightGame(userid, airplane_type_id, fuel, addOrMinus):
     if(addOrMinus == 0):
-        sql = f"update user_airplane_flight_game set current_fuel_capacity = current_fuel_capacity - {fuel} where userid = {userid} and airport_id = {airplane_type_id};"
+        sql = f"update user_airplane_flight_game set current_fuel_capacity = current_fuel_capacity - {fuel} where userid = {userid} and airplane_type_id = {airplane_type_id};"
     elif(addOrMinus == 1):
-        sql = f"update user_airplane_flight_game set current_fuel_capacity = current_fuel_capacity + {fuel} where userid = {userid} and airport_id = {airplane_type_id};"
+        sql = f"update user_airplane_flight_game set current_fuel_capacity = current_fuel_capacity + {fuel} where userid = {userid} and airplane_type_id = {airplane_type_id};"
     fun.getResultList(sql)
 
 
@@ -28,26 +28,26 @@ def initialPlayerStatus(user_id):
 
 # initialization of airplane status
 def initialPlaneStatus(user_id):
-    sql = f"insert into user_airplane_flight_game (userid, airplane_id, current_fuel_capacity) values ({user_id}, 1, 10000);"
+    sql = f"insert into user_airplane_flight_game (userid, airplane_type_id, current_fuel_capacity) values ({user_id}, 1, 10000);"
     fun.getResultList(sql)
 
 
 # ---------------------------------------------------------------------
-# Task_flight_game��Ĳ�ѯ,��ѯ�������
+# Task_flight_game?????,??????????
 def checkTaskStatus(user_id, is_done):
-    sql = (f"select f.User_id, f.Task_id, f.Addr_from, f.Addr_to, f.Is_done, t.task_name "
-           f"from Task_flight_game f left join task_type_flight_game t on t.task_id = f.task_id "
+    sql = (f"select f.User_id, f.task_type_id, f.Addr_from, f.Addr_to, f.Is_done, t.task_name "
+           f"from Task_flight_game f left join task_type_flight_game t on t.task_type_id = f.task_type_id "
            f"where user_id= {user_id} and is_done = {is_done}")
     result = fun.getResultList(sql)
     return result
 
 
-# ��������[(User_id, Task_id, Addr_from, Addr_to, Is_done)]
-# ������ʾ��[(1,1,00A,00B,true),(2,2,00C,00D,false)]
+# ????????[(User_id, Task_id, Addr_from, Addr_to, Is_done)]
+# ?????????[(1,1,00A,00B,true),(2,2,00C,00D,false)]
 
 
 # ----------------------------------------------------------------------
-# ��ѯUser_flight_game����ѯ���״̬
+# ???User_flight_game??????????
 def checkPlayerStatus(User_id):
     sql = f"select username, current_location, current_amount from user_flight_game where userid = {User_id};"
     result = fun.getResultList(sql)
@@ -57,11 +57,11 @@ def checkPlayerStatus(User_id):
         print("Check player status ERROR!")
 
 
-# ��������[(userName, current_location, current_amount)]
-# ������ʾ��[(ZhuRunzhou,00A,2000)]
+# ????????[(userName, current_location, current_amount)]
+# ?????????[(ZhuRunzhou,00A,2000)]
 
 # ------------------------------------------------------------------------
-# ��ѯUser_airplane_flight_game����ѯ��ҷɻ�״̬
+# ???User_airplane_flight_game????????????
 def checkAirplaneStatus(User_id):
     sql = f"select current_fuel_capacity from user_airplane_flight_game where userid = {User_id}"
     result = fun.getResultList(sql)
@@ -71,11 +71,11 @@ def checkAirplaneStatus(User_id):
         print("Check Airplane status ERROR!")
 
 
-# ��������[current_fuel_capacity]
+# ????????[current_fuel_capacity]
 
 
 # -------------------------------------------------------------------------
-# ��ӡ���״̬
+# ????????
 def printPlayerStatus(User_id):
     result = checkPlayerStatus(User_id)
     print(f"Hello, {result[0][0]}. You are at {result[0][1]}. You have {result[0][2]} money in your poket.")
@@ -84,7 +84,7 @@ def printPlayerStatus(User_id):
 
 
 # --------------------------------------------------------------------------
-# ��ӡ�ɻ�״̬
+# ????????
 def printPlaneStatus(User_id):
     result = checkAirplaneStatus(User_id)
     print(f"Hello, you have {result[0]}L fuel in your tank.")
@@ -93,7 +93,7 @@ def printPlaneStatus(User_id):
 
 
 # ---------------------------------------------------------------------------
-# ��ӡ����״̬
+# ?????????
 def printTaskStatus(User_id):
     result = checkTaskStatus(User_id, 0)
     # [(10, 6, 'John Reid Airport', 'Unity Health Specialty Care Heliport', 0, 'F'),
