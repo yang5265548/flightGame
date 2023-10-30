@@ -140,10 +140,13 @@ def initCurrentLocation(userid):
 # # for i in list:
 # #     print(i)
 # register()
-# countryList=checkCountryList("United States")
-# airportlist=get10AirportsFromCountryList(countryList)
-# fromToList=randAirportFromTo(airportlist)
-# randUserTask(24,fromToList)
+
 
 initCurrentLocation(24)
 
+# 任务生成的总方法
+def initTask(countryname,userid):
+    countryList=checkCountryList(countryname)
+    airportlist=get10AirportsFromCountryList(countryList)
+    fromToList=randAirportFromTo(airportlist)
+    randUserTask(userid,fromToList)
