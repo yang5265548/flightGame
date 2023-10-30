@@ -171,4 +171,19 @@ def updateUserCurrentAmountAndLocation(userId, TaskAmount, currentLocation):
     return result;
 
 
+def selectFuelTank(airplaneTypeId):
+    sql = f"select airplane_type_id, airplane_type, fuel_tank_capacity from airplane_type_flight_game where airplane_type_id = '{airTypeId}'";
+    result = fun.getResultList(sql);
+    if result is not None:
+        return result;
+    else:
+        return None;
+
+def calculateHowMuchFuel(airTypeId, currentFuel):
+    airplanTypes = selectFuelTank(airTypeId);
+    # 油箱大小
+    oilTank = airplanTypes[0][1];
+    return oilTank - currentFuel
+
+
 # settlement(1);
