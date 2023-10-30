@@ -127,7 +127,7 @@ def checkCountryList(countryName):
 
 # 将用户飞机初始化
 def initUserAirplane(userid):
-    sql=f"insert into user_airplane_flight_game(userid,airplane_type_id, current_fuel_capacity) values ({userid},1,'1000000')"
+    sql=f"insert into user_airplane_flight_game(userid,airplane_type_id, current_fuel_capacity) values ({userid},0,'1000000')"
     function.oprateData(sql)
 
 

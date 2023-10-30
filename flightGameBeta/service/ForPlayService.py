@@ -88,12 +88,13 @@ def flyNoTask(userId, currentPlace, targetPlace):
 
 # taskId获取出发机场,到达机场名称
 def getFromToAddr(id):
-    sql = f"SELECT user_id, task_type_id as taskTypeId, weather_id, addr_from, addr_to FROM `task_flight_game` where id = '{id}'";
+    sql = f"SELECT user_id, task_type_id as taskTypeId, weather_id, addr_from, addr_to FROM `task_flight_game` where task_id = '{id}'";
     return fun.getResultList(sql);
 
 
 # 机场名称获取其经纬度
 def getAirPortNF(airportName):
+    airportName = airportName.replace('\'', '\\\'')
     sql = f"select lat_deg, lon_deg, fuel_price from airport_flight_game where airport_name = '{airportName}'";
     return fun.getResultList(sql);
 
@@ -127,7 +128,7 @@ def getRandomWeather(weather_id):
 
 #  通过任务id去找到任务类型表拿到公里油耗和公里金钱
 def selectTaskType(taskTypeId):
-    sql = f"select task_id, task_name, bonus_per_km, oil_consumption from task_type_flight_game where task_id = '{taskTypeId}'";
+    sql = f"select task_type_id, task_name, bonus_per_km, oil_consumption from task_type_flight_game where task_type_id = '{taskTypeId}'";
     result = fun.getResultList(sql);
     if result is not None:
         return result;
@@ -149,7 +150,7 @@ def selectWeather(weather_id):
 #  oilConsume 最终油耗
 #  amount 最终金钱
 def updateTaskCurrentOilAndMoney(oilConsume, amount, taskId, userId, weather_id):
-    sql = f"update Task_flight_game set Weather_id = '{weather_id}', Is_done = 1, Task_oil = '{oilConsume}', Task_bonus = '{amount}' where id = '{taskId}' "
+    sql = f"update Task_flight_game set Weather_id = '{weather_id}', Is_done = 1, Task_oil = '{oilConsume}', Task_bonus = '{amount}' where task_id = '{taskId}' "
     result = fun.oprateData(sql);
     return result;
 
@@ -158,6 +159,7 @@ def updateTaskCurrentOilAndMoney(oilConsume, amount, taskId, userId, weather_id)
 #  currentLocation 当前位置
 #  TaskAmount 任务金币
 def updateUserCurrentAmountAndLocation(userId, TaskAmount, currentLocation):
+    currentLocation = currentLocation.replace('\'', '\\\'')
     result = None;
     if(TaskAmount is not None and currentLocation is not None):
         sql = f"update User_flight_game set current_location = '{currentLocation}' , current_amount =  current_amount + {TaskAmount} where userId = {userId}"
@@ -172,7 +174,7 @@ def updateUserCurrentAmountAndLocation(userId, TaskAmount, currentLocation):
 
 
 def selectFuelTank(airplaneTypeId):
-    sql = f"select airplane_type_id, airplane_type, fuel_tank_capacity from airplane_type_flight_game where airplane_type_id = '{airTypeId}'";
+    sql = f"select airplane_type_id, airplane_type, fuel_tank_capacity from airplane_type_flight_game where airplane_type_id = '{airplaneTypeId}'";
     result = fun.getResultList(sql);
     if result is not None:
         return result;
@@ -182,7 +184,7 @@ def selectFuelTank(airplaneTypeId):
 def calculateHowMuchFuel(airTypeId, currentFuel):
     airplanTypes = selectFuelTank(airTypeId);
     # 油箱大小
-    oilTank = airplanTypes[0][1];
+    oilTank = airplanTypes[0][2];
     return oilTank - currentFuel
 
 

@@ -5,12 +5,12 @@ import flightGameBeta.public_function.DatabaseConnection as fun
 # updateUserAirplaneFlightGame
 # if addOrMinus == 0  add oil
 # if addOrMinus == 1  minus oil
-# if addOrMinus == 2  minus oil
+# if addOrMinus == 2  reset oil
 def updateUserAirplaneFlightGame(userid, airplane_type_id, fuel, addOrMinus):
     if(addOrMinus == 0):
-        sql = f"update user_airplane_flight_game set current_fuel_capacity = current_fuel_capacity - {fuel} where userid = {userid} and airplane_type_id = {airplane_type_id};"
-    elif(addOrMinus == 1):
         sql = f"update user_airplane_flight_game set current_fuel_capacity = current_fuel_capacity + {fuel} where userid = {userid} and airplane_type_id = {airplane_type_id};"
+    elif(addOrMinus == 1):
+        sql = f"update user_airplane_flight_game set current_fuel_capacity = current_fuel_capacity - {fuel} where userid = {userid} and airplane_type_id = {airplane_type_id};"
     elif (addOrMinus == 2):
         sql = f"update user_airplane_flight_game set current_fuel_capacity = {fuel} where userid = {userid} and airplane_type_id = {airplane_type_id};"
     fun.getResultList(sql)
@@ -37,7 +37,7 @@ def initialPlaneStatus(user_id):
 # ---------------------------------------------------------------------
 # Task_flight_game?????,??????????
 def checkTaskStatus(user_id, is_done):
-    sql = (f"select f.User_id, f.task_type_id, f.Addr_from, f.Addr_to, f.Is_done, t.task_name "
+    sql = (f"select f.User_id, f.task_type_id, f.Addr_from, f.Addr_to, f.Is_done, t.task_name,f.task_id,f.weather_id "
            f"from Task_flight_game f left join task_type_flight_game t on t.task_type_id = f.task_type_id "
            f"where user_id= {user_id} and is_done = {is_done}")
     result = fun.getResultList(sql)

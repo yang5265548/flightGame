@@ -29,4 +29,3 @@ def guess_reddle():
                 print("Wrong!\nBut you got new petrol because you are so cute!")
                 return True
 
-guess_reddle()

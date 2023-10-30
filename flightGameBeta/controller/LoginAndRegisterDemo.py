@@ -68,7 +68,7 @@ def fly(user):
 
 #login 1
 def loginAndRegister():
-    slidePrint("✈✈✈✈✈✈✈✈✈✈✈✈✈welcome to Emergency transportation✈✈✈✈✈✈✈✈✈✈✈✈✈")
+    slidePrint("✈✈✈✈✈✈✈✈✈✈✈✈✈Welcome to YM2Z Global Relief✈✈✈✈✈✈✈✈✈✈✈✈✈")
     choice = input("1. log in                   2. register\nplease input your choice:");
     userDetail = login(choice, None,None);
     if(userDetail[0][5] is None):
