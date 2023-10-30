@@ -94,7 +94,7 @@ def getFromToAddr(id):
 
 # 机场名称获取其经纬度
 def getAirPortNF(airportName):
-    sql = f"select lat_deg, lon_deg from airport_flight_game where airport_name = '{airportName}'";
+    sql = f"select lat_deg, lon_deg, fuel_price from airport_flight_game where airport_name = '{airportName}'";
     return fun.getResultList(sql);
 
 
