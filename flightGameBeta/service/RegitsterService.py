@@ -131,21 +131,6 @@ def initUserAirplane(userid):
     function.oprateData(sql)
 
 
-# 新用户注册生成任务后，将第一个任务的fromcity当做初始地址赋予到user_flight_game中的current_location中
-def initCurrentLocation(userid):
-#     查询用户第一个from城市
-    firstCityLocation=f"select addr_from from task_flight_game where user_id='{userid}' order by task_id limit 1"
-    firstCityLocationResult=function.getResultList(firstCityLocation)
-    bornCity=firstCityLocationResult[0][0]
-    initBornCity=f"update  user_flight_game current_location = '{bornCity}' where userid = {userid}  "
-
-# # print("-----------------------")
-# # for i in list:
-# #     print(i)
-# register()
-
-
-initCurrentLocation(24)
 
 # 任务生成的总方法
 def initTask(countryname,userid):

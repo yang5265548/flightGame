@@ -68,9 +68,22 @@ def fly(user):
 
 #login 1
 # slidePrint("✈✈✈✈✈✈✈✈✈✈✈✈✈welcome to Emergency transportation✈✈✈✈✈✈✈✈✈✈✈✈✈")
-# choice = input("1. log in                   2. register\nplease input your choice:");
-# userDetail = login(choice, None,None);
-# slidePrint("✈✈✈✈✈✈✈✈✈login success✈✈✈✈✈✈✈✈✈")
+choice = input("1. log in                   2. register\nplease input your choice:");
+userDetail = login(choice, None,None);
+slidePrint("✈✈✈✈✈✈✈✈✈login success✈✈✈✈✈✈✈✈✈")
+if(userDetail[0][5] is None):
+    countryNameStratWord = input("input countryName startWord");
+    countryNames = RegitsterService.checkAllCountryListStartWith(countryNameStratWord);
+    for index, i in enumerate(countryNames):
+        print(f"{index}. {i}");
+    countryNameNumber = int(input("input countryName number: "));
+    countryName = countryNames[countryNameNumber]
+    tasks = RegitsterService.initTask(countryName, userDetail[0][0]);
+    #获取 第一个数组的from
+    airportFirstTask = tasks[0][3];
+    ForPlayService.updateUserCurrentAmountAndLocation(userDetail[0][0], None, airportFirstTask);
+    ForPlayService.updateUserCurrentAmountAndLocation(userDetail[0][0], None, None);
+
 
 
 

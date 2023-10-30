@@ -54,6 +54,28 @@ def settlement(taskId):
     return result;
 
 
+# 飞机空飞 1.消耗油量, 当前所在地, 目的地()
+def flyNoTask(currentPlace, targetPlace):
+    #通过当前所在地和目的地获取距离
+    fromAddr = getAirPortNF(currentPlace);
+    toAddr = getAirPortNF(targetPlace);
+    fromLat = fromAddr[0][0]
+    fromLog = fromAddr[0][1]
+    toLat = toAddr[0][0]
+    toLlog = toAddr[0][1]
+    fromAirport = (fromLat, fromLog);
+    # 任务里到达机场经纬度
+    toAirport = (toLat, toLlog);
+    # 通过两个机场经纬度获取距离
+    distanceCount = distance.distance(fromAirport, toAirport).kilometers;
+
+    # 通过距离数计算油耗
+    basicOilConsume = distanceCount * 10;
+
+    #将当前地址改成目的地
+
+    return
+
 # taskId获取出发机场,到达机场名称
 def getFromToAddr(id):
     sql = f"SELECT user_id, task_id as taskTypeId, weather_id, addr_from, addr_to FROM `task_flight_game` where id = '{id}'";
@@ -126,8 +148,16 @@ def updateTaskCurrentOilAndMoney(oilConsume, amount, taskId, userId, weather_id)
 #  currentLocation 当前位置
 #  TaskAmount 任务金币
 def updateUserCurrentAmountAndLocation(userId, TaskAmount, currentLocation):
-    sql = f"update User_flight_game set current_location = '{currentLocation}' , current_amount =  current_amount + {TaskAmount} , log_time = current_timestamp where userId = {userId}"
-    result = fun.oprateData(sql);
+    result = None;
+    if(TaskAmount is not None and currentLocation is not None):
+        sql = f"update User_flight_game set current_location = '{currentLocation}' , current_amount =  current_amount + {TaskAmount} where userId = {userId}"
+        result = fun.oprateData(sql);
+    elif(TaskAmount is None and currentLocation is not None):
+        sql = f"update User_flight_game set current_location = '{currentLocation}' where userId = {userId}"
+        result = fun.oprateData(sql);
+    elif(TaskAmount is None and currentLocation is None):
+        sql = f"update User_flight_game set log_time = current_timestamp  where userId = {userId}"
+        result = fun.oprateData(sql);
     return result;
 
 
