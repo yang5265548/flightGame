@@ -72,7 +72,7 @@ def flyNoTask(userId, currentPlace, targetPlace):
     # 通过距离数计算油耗
     basicOilConsume = distanceCount * 10;
     # 扣除飞机油量
-    result = rz.updateUserAirplaneFlightGame(userId, 0, OilConsume, 0)
+    result = rz.updateUserAirplaneFlightGame(userId, 0, basicOilConsume, 0)
     #将当前地址改成目的地
     result = updateUserCurrentAmountAndLocation(userId, None, targetPlace);
     return result;
