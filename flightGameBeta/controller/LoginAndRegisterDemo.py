@@ -84,6 +84,7 @@ def loginAndRegister():
         ForPlayService.updateUserCurrentAmountAndLocation(userDetail[0][0], None, airportFirstTask);
         ForPlayService.updateUserCurrentAmountAndLocation(userDetail[0][0], None, None);
     slidePrint("✈✈✈✈✈✈✈✈✈login success✈✈✈✈✈✈✈✈✈");
+    return userDetail;
 
 
 
