@@ -95,6 +95,8 @@ def randUserTask(userid, fromTolist):
     if weatherResult != None:
         for result in weatherResult:
             weatherList.append(result[0])
+    # 新建结果list准备输出
+    taskResultList=[]
     #     根据随机出来的task，查出他的油耗和金钱比例，进行计算 需要思考是通过for循环来实现一条一条查询，还是通过sql直接把结果都查出来
     for i in range(5):
         str1=f"{fromTolist[i]['from']}"
@@ -104,8 +106,9 @@ def randUserTask(userid, fromTolist):
         tasksql=f"insert into task_flight_game(user_id, task_type_id, weather_id, addr_from, addr_to, is_done) values ({userid},{taskList[i]},{weatherList[i]},'{fromList}','{toList}',0)"
         function.oprateData(tasksql)
 
+        taskResultList.append((userid,taskList[i],weatherList[i],fromTolist[i]['from'],fromTolist[i]['to'],0))
+    return taskResultList
 
-    initUserAirplane(userid)
 
 
 
@@ -149,4 +152,5 @@ def initTask(countryname,userid):
     countryList=checkCountryList(countryname)
     airportlist=get10AirportsFromCountryList(countryList)
     fromToList=randAirportFromTo(airportlist)
-    randUserTask(userid,fromToList)
+    taskResultList=randUserTask(userid,fromToList)
+    return taskResultList
