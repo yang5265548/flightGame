@@ -44,6 +44,7 @@ def settlement(taskId):
         result = updateUserCurrentAmountAndLocation(userId, Bounds, taskDetail[0][4]);
     return result;
 
+# 计算距离
 def claculateDistance(currentPlace, targetPlace):
     # 通过当前所在地和目的地获取距离
     fromAddr = getAirPortNF(currentPlace);
@@ -58,6 +59,14 @@ def claculateDistance(currentPlace, targetPlace):
     # 通过两个机场经纬度获取距离
     distanceCount = distance.distance(fromAirport, toAirport).kilometers;
     return distanceCount;
+
+#计算油耗
+def calculateFule(distance, taskTypeId):
+    taskTypeDetail = selectTaskType(taskTypeId);
+    perOil = float(taskTypeDetail[0][3]);
+    # 通过距离数计算任务基本油耗和金钱
+    basicOilConsume = distanceCount * perOil;
+    return basicOilConsume
 
 # 飞机空飞 1.消耗油量, 当前所在地, 目的地()
 def flyNoTask(userId, currentPlace, targetPlace):
@@ -74,7 +83,7 @@ def flyNoTask(userId, currentPlace, targetPlace):
 
 # taskId获取出发机场,到达机场名称
 def getFromToAddr(id):
-    sql = f"SELECT user_id, task_id as taskTypeId, weather_id, addr_from, addr_to FROM `task_flight_game` where id = '{id}'";
+    sql = f"SELECT user_id, task_type_id as taskTypeId, weather_id, addr_from, addr_to FROM `task_flight_game` where id = '{id}'";
     return fun.getResultList(sql);
 
 
