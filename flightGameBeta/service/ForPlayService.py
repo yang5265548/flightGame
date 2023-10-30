@@ -61,12 +61,17 @@ def claculateDistance(currentPlace, targetPlace):
     return distanceCount;
 
 #计算油耗
-def calculateFule(distance, taskTypeId):
+def calculateFule(distance, taskTypeId, weatherId):
     taskTypeDetail = selectTaskType(taskTypeId);
     perOil = float(taskTypeDetail[0][3]);
     # 通过距离数计算任务基本油耗和金钱
     basicOilConsume = distance * perOil;
-    return basicOilConsume
+    # 通过天气id获取天气加成油耗和金币
+    weatherDetail = getRandomWeather(weatherId);
+    # print(weatherDetail)
+    # 基本油耗金币与天气油耗金币计算出最后油耗金币
+    OilConsume = basicOilConsume * (1 + float(weatherDetail[0][3]));
+    return OilConsume
 
 # 飞机空飞 1.消耗油量, 当前所在地, 目的地()
 def flyNoTask(userId, currentPlace, targetPlace):
