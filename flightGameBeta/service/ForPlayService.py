@@ -55,7 +55,7 @@ def settlement(taskId):
 
 
 # 飞机空飞 1.消耗油量, 当前所在地, 目的地()
-def flyNoTask(currentPlace, targetPlace):
+def flyNoTask(userId, currentPlace, targetPlace):
     #通过当前所在地和目的地获取距离
     fromAddr = getAirPortNF(currentPlace);
     toAddr = getAirPortNF(targetPlace);
@@ -71,10 +71,11 @@ def flyNoTask(currentPlace, targetPlace):
 
     # 通过距离数计算油耗
     basicOilConsume = distanceCount * 10;
-
+    # 扣除飞机油量
+    result = rz.updateUserAirplaneFlightGame(userId, 0, OilConsume, 0)
     #将当前地址改成目的地
-
-    return
+    result = updateUserCurrentAmountAndLocation(userId, None, targetPlace);
+    return result;
 
 # taskId获取出发机场,到达机场名称
 def getFromToAddr(id):
