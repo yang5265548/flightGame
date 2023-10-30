@@ -65,7 +65,7 @@ def calculateFule(distance, taskTypeId):
     taskTypeDetail = selectTaskType(taskTypeId);
     perOil = float(taskTypeDetail[0][3]);
     # 通过距离数计算任务基本油耗和金钱
-    basicOilConsume = distanceCount * perOil;
+    basicOilConsume = distance * perOil;
     return basicOilConsume
 
 # 飞机空飞 1.消耗油量, 当前所在地, 目的地()
