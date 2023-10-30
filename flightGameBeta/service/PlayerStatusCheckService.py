@@ -56,6 +56,8 @@ def checkPlayerStatus(User_id):
     else:
         print("Check player status ERROR!")
 
+print(checkPlayerStatus(11))
+
 
 # ????????[(userName, current_location, current_amount)]
 # ?????????[(ZhuRunzhou,00A,2000)]
@@ -63,7 +65,7 @@ def checkPlayerStatus(User_id):
 # ------------------------------------------------------------------------
 # ???User_airplane_flight_game????????????
 def checkAirplaneStatus(User_id):
-    sql = f"select current_fuel_capacity from user_airplane_flight_game where userid = {User_id}"
+    sql = f"select current_fuel_capacity, airplane_type_id from user_airplane_flight_game where userid = {User_id}"
     result = fun.getResultList(sql)
     if result is not None:
         return result[0]
