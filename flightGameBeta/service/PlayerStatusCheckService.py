@@ -56,7 +56,6 @@ def checkPlayerStatus(User_id):
     else:
         print("Check player status ERROR!")
 
-print(checkPlayerStatus(11))
 
 
 # ????????[(userName, current_location, current_amount)]
@@ -65,12 +64,22 @@ print(checkPlayerStatus(11))
 # ------------------------------------------------------------------------
 # ???User_airplane_flight_game????????????
 def checkAirplaneStatus(User_id):
-    sql = f"select current_fuel_capacity, airplane_type_id from user_airplane_flight_game where userid = {User_id}"
+    sql = f"select current_fuel_capacity from user_airplane_flight_game where userid = {User_id}"
     result = fun.getResultList(sql)
     if result is not None:
         return result[0]
     else:
         print("Check Airplane status ERROR!")
+
+
+def checkAir(User_id):
+    sql = f"select current_fuel_capacity, airplane_type_id from user_airplane_flight_game where userid = {User_id}"
+    result = fun.getResultList(sql)
+    if result is not None:
+        return result
+    else:
+        print("Check Airplane status ERROR!")
+
 
 
 # ????????[current_fuel_capacity]
