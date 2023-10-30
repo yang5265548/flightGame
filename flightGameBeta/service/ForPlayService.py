@@ -17,17 +17,8 @@ def settlement(taskId):
     userId = taskDetail[0][0];
     taskTypeId = taskDetail[0][1];
     weatherId = taskDetail[0][2];
-    fromAddr = getAirPortNF(taskDetail[0][3]);
-    toAddr = getAirPortNF(taskDetail[0][4]);
-    fromLat = fromAddr[0][0]
-    fromLog = fromAddr[0][1]
-    toLat = toAddr[0][0]
-    toLlog = toAddr[0][1]
-    fromAirport = (fromLat, fromLog);
-    # 任务里到达机场经纬度
-    toAirport = (toLat, toLlog);
     # 通过两个机场经纬度获取距离
-    distanceCount = distance.distance(fromAirport, toAirport).kilometers;
+    distanceCount = claculateDistance(taskDetail[0][3], taskDetail[0][4]);
     # 通过任务类型id去找到任务类型表拿到公里油耗和公里金钱
     taskTypeDetail = selectTaskType(taskTypeId);
     perBounds = float(taskTypeDetail[0][2]);
@@ -53,10 +44,8 @@ def settlement(taskId):
         result = updateUserCurrentAmountAndLocation(userId, Bounds, taskDetail[0][4]);
     return result;
 
-
-# 飞机空飞 1.消耗油量, 当前所在地, 目的地()
-def flyNoTask(userId, currentPlace, targetPlace):
-    #通过当前所在地和目的地获取距离
+def claculateDistance(currentPlace, targetPlace):
+    # 通过当前所在地和目的地获取距离
     fromAddr = getAirPortNF(currentPlace);
     toAddr = getAirPortNF(targetPlace);
     fromLat = fromAddr[0][0]
@@ -68,6 +57,12 @@ def flyNoTask(userId, currentPlace, targetPlace):
     toAirport = (toLat, toLlog);
     # 通过两个机场经纬度获取距离
     distanceCount = distance.distance(fromAirport, toAirport).kilometers;
+    return distanceCount;
+
+# 飞机空飞 1.消耗油量, 当前所在地, 目的地()
+def flyNoTask(userId, currentPlace, targetPlace):
+    # 通过两个机场经纬度获取距离
+    distanceCount = claculateDistance(currentPlace, targetPlace);
 
     # 通过距离数计算油耗
     basicOilConsume = distanceCount * 10;
