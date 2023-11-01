@@ -7,46 +7,46 @@ import flightGameBeta.service.PlayerStatusCheckService as rz
 
 # author:zzy
 
-# 结算(用户id,任务id, 天气对象)
+# Settlement (user id, task id, weather object)
 def settlement(taskId):
-    # 计算天气加成
-    # taskId获取任务数据
-    # 任务里出发机场经纬度
+    # Calculate weather bonus
+    # taskId gets task data
+    # Longitude and latitude of the departure airport in the task
     taskDetail = getFromToAddr(taskId);
     # print(taskDetail)
     userId = taskDetail[0][0];
     taskTypeId = taskDetail[0][1];
     weatherId = taskDetail[0][2];
-    # 通过两个机场经纬度获取距离
+    # Get distance from two airports by latitude and longitude
     distanceCount = claculateDistance(taskDetail[0][3], taskDetail[0][4]);
-    # 通过任务类型id去找到任务类型表拿到公里油耗和公里金钱
+    # Use the task type id to find the task type table and get the mileage fuel consumption and mileage money.
     taskTypeDetail = selectTaskType(taskTypeId);
     perBounds = float(taskTypeDetail[0][2]);
     perOil = float(taskTypeDetail[0][3]);
-    # 通过距离数计算任务基本油耗和金钱
+    # Calculate mission basic fuel consumption and money based on distance
     basicBounds = distanceCount * perBounds;
     basicOilConsume = distanceCount * perOil;
 
-    # 通过天气id获取天气加成油耗和金币
+    # Get weather bonus fuel consumption and gold coins through weather ID
     weatherDetail = getRandomWeather(weatherId);
     # print(weatherDetail)
-    # 基本油耗金币与天气油耗金币计算出最后油耗金币
+    # Basic fuel consumption gold coins and weather fuel consumption gold coins are used to calculate the final fuel consumption gold coins
     OilConsume = basicOilConsume * (1 - float(weatherDetail[0][3]));
     Bounds = basicBounds * (1 + float(weatherDetail[0][4]));
-    # 向task表写入当前任务的油耗,金钱
+    # Write the fuel consumption and money of the current task to the task table
     result = updateTaskCurrentOilAndMoney(OilConsume, Bounds, taskId, userId, weatherId);
 
-    #修改燃油量
+    #Modify fuel quantity
     rz.updateUserAirplaneFlightGame(userId, 0, OilConsume, 0)
 
-    # 向用户详情表写入current_amount ,current_location
+    # Write current_amount, current_location to the user details table
     if(result is True):
         result = updateUserCurrentAmountAndLocation(userId, Bounds, taskDetail[0][4]);
     return result;
 
-# 计算距离
+# Calculate distance
 def claculateDistance(currentPlace, targetPlace):
-    # 通过当前所在地和目的地获取距离
+    # Get distance from current location and destination
     fromAddr = getAirPortNF(currentPlace);
     toAddr = getAirPortNF(targetPlace);
     fromLat = fromAddr[0][0]
@@ -54,52 +54,52 @@ def claculateDistance(currentPlace, targetPlace):
     toLat = toAddr[0][0]
     toLlog = toAddr[0][1]
     fromAirport = (fromLat, fromLog);
-    # 任务里到达机场经纬度
+    # Arrival airport latitude and longitude in mission
     toAirport = (toLat, toLlog);
-    # 通过两个机场经纬度获取距离
+    # Get distance from two airports by latitude and longitude
     distanceCount = distance.distance(fromAirport, toAirport).kilometers;
     return distanceCount;
 
-#计算油耗
+#Calculate fuel consumption
 def calculateFule(distance, taskTypeId, weatherId):
     taskTypeDetail = selectTaskType(taskTypeId);
     perOil = float(taskTypeDetail[0][3]);
-    # 通过距离数计算任务基本油耗和金钱
+    # Calculate mission basic fuel consumption and money based on distance
     basicOilConsume = distance * perOil;
-    # 通过天气id获取天气加成油耗和金币
+    # Get weather bonus fuel consumption and gold coins through weather ID
     weatherDetail = getRandomWeather(weatherId);
     # print(weatherDetail)
-    # 基本油耗金币与天气油耗金币计算出最后油耗金币
+    # Basic fuel consumption gold coins and weather fuel consumption gold coins are used to calculate the final fuel consumption gold coins.
     OilConsume = basicOilConsume * (1 + float(weatherDetail[0][3]));
     return OilConsume
 
-# 飞机空飞 1.消耗油量, 当前所在地, 目的地()
+# The plane is empty 1. Fuel consumption, current location, destination ()
 def flyNoTask(userId, currentPlace, targetPlace):
-    # 通过两个机场经纬度获取距离
+    # Get distance from two airports by latitude and longitude
     distanceCount = claculateDistance(currentPlace, targetPlace);
 
-    # 通过距离数计算油耗
+    # Calculate fuel consumption based on distance
     basicOilConsume = distanceCount * 10;
-    # 扣除飞机油量
+    # Deduct aircraft fuel
     result = rz.updateUserAirplaneFlightGame(userId, 0, basicOilConsume, 0)
-    #将当前地址改成目的地
+    #Change current address to destination
     result = updateUserCurrentAmountAndLocation(userId, None, targetPlace);
     return result;
 
-# taskId获取出发机场,到达机场名称
+# taskId gets the departure airport and arrival airport name
 def getFromToAddr(id):
     sql = f"SELECT user_id, task_type_id as taskTypeId, weather_id, addr_from, addr_to FROM `task_flight_game` where task_id = '{id}'";
     return fun.getResultList(sql);
 
 
-# 机场名称获取其经纬度
+# Airport name to get its latitude and longitude
 def getAirPortNF(airportName):
     airportName = airportName.replace('\'', '\\\'')
     sql = f"select lat_deg, lon_deg, fuel_price from airport_flight_game where airport_name = '{airportName}'";
     return fun.getResultList(sql);
 
 
-# 查询用户已开启机场列表(用户ID)
+# Query the list of airports opened by the user (user ID)
 def getUserCity(userId):
     sql = (f"select "
            "af.Airport_id,"
@@ -119,14 +119,14 @@ def getUserCity(userId):
     return fun.getResultList(sql);
 
 
-# 随机天气加成列表(为任务随机出一个天气id)
+# Random weather bonus list (randomly generate a weather ID for the task)
 def getRandomWeather(weather_id):
     sql = f"select wf.Weather_id, wf.Weather_name, wf.description, wf.oil_consumption_rate,wf.bonus_per_km_rate from Weather_flight_game wf where Weather_id = '{weather_id}'";
     weatherList = fun.getResultList(sql);
     return weatherList;
 
 
-#  通过任务id去找到任务类型表拿到公里油耗和公里金钱
+#  Use the task ID to find the task type table and get the mileage fuel consumption and mileage money.
 def selectTaskType(taskTypeId):
     sql = f"select task_type_id, task_name, bonus_per_km, oil_consumption from task_type_flight_game where task_type_id = '{taskTypeId}'";
     result = fun.getResultList(sql);
@@ -136,7 +136,7 @@ def selectTaskType(taskTypeId):
         return None;
 
 
-#  查询天气表 通过天气id获取天气加成油耗和金币
+#  Query the weather table and obtain weather bonus fuel consumption and gold coins through weather ID
 def selectWeather(weather_id):
     sql = f"select Weather_id, Weather_name, description, oil_consumption_rate, bonus_per_km_rate from Weather_flight_game where Weather_id = '{weather_id}'";
     result = fun.getResultList(sql);
@@ -146,18 +146,18 @@ def selectWeather(weather_id):
         return None;
 
 
-#  向task表写入当前任务的油耗,金钱
-#  oilConsume 最终油耗
-#  amount 最终金钱
+# Write the fuel consumption and money of the current task to the task table
+# oilConsume Final fuel consumption
+# amount final money
 def updateTaskCurrentOilAndMoney(oilConsume, amount, taskId, userId, weather_id):
     sql = f"update Task_flight_game set Weather_id = '{weather_id}', Is_done = 1, Task_oil = '{oilConsume}', Task_bonus = '{amount}' where task_id = '{taskId}' "
     result = fun.oprateData(sql);
     return result;
 
 
-#  向用户详情表写入current_amount ,current_location
-#  currentLocation 当前位置
-#  TaskAmount 任务金币
+# Write current_amount, current_location to the user details table
+# currentLocation current location
+# TaskAmount task gold coins
 def updateUserCurrentAmountAndLocation(userId, TaskAmount, currentLocation):
     currentLocation = currentLocation.replace('\'', '\\\'')
     result = None;
@@ -173,6 +173,8 @@ def updateUserCurrentAmountAndLocation(userId, TaskAmount, currentLocation):
     return result;
 
 
+
+
 def selectFuelTank(airplaneTypeId):
     sql = f"select airplane_type_id, airplane_type, fuel_tank_capacity from airplane_type_flight_game where airplane_type_id = '{airplaneTypeId}'";
     result = fun.getResultList(sql);
@@ -183,7 +185,7 @@ def selectFuelTank(airplaneTypeId):
 
 def calculateHowMuchFuel(airTypeId, currentFuel):
     airplanTypes = selectFuelTank(airTypeId);
-    # 油箱大小
+    # Fuel tank size
     oilTank = airplanTypes[0][2];
     return oilTank - currentFuel
 
