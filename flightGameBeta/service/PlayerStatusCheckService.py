@@ -35,7 +35,7 @@ def initialPlaneStatus(user_id):
 
 
 # ---------------------------------------------------------------------
-# Task_flight_game?????,??????????
+# Use task_flight_game, check tasks
 def checkTaskStatus(user_id, is_done):
     sql = (f"select f.User_id, f.task_type_id, f.Addr_from, f.Addr_to, f.Is_done, t.task_name,f.task_id,f.weather_id "
            f"from Task_flight_game f left join task_type_flight_game t on t.task_type_id = f.task_type_id "
@@ -44,12 +44,12 @@ def checkTaskStatus(user_id, is_done):
     return result
 
 
-# ????????[(User_id, Task_id, Addr_from, Addr_to, Is_done)]
-# ?????????[(1,1,00A,00B,true),(2,2,00C,00D,false)]
+# Output example: [(User_id, Task_id, Addr_from, Addr_to, Is_done)]
+# Output example: [(1,1,00A,00B,true),(2,2,00C,00D,false)]
 
 
 # ----------------------------------------------------------------------
-# ???User_flight_game??????????
+# Use user_flight_game check player location and money
 def checkPlayerStatus(User_id):
     sql = f"select username, current_location, current_amount from user_flight_game where userid = {User_id};"
     result = fun.getResultList(sql)
@@ -60,11 +60,11 @@ def checkPlayerStatus(User_id):
 
 
 
-# ????????[(userName, current_location, current_amount)]
-# ?????????[(ZhuRunzhou,00A,2000)]
+# Output example: [(userName, current_location, current_amount)]
+# Output example: [(ZhuRunzhou,00A,2000)]
 
 # ------------------------------------------------------------------------
-# ???User_airplane_flight_game????????????
+# Use user_airplane_flight_game check player's plane fuel condition
 def checkAirplaneStatus(User_id):
     sql = f"select current_fuel_capacity from user_airplane_flight_game where userid = {User_id}"
     result = fun.getResultList(sql)
@@ -84,11 +84,11 @@ def checkAir(User_id):
 
 
 
-# ????????[current_fuel_capacity]
+# Output example: [current_fuel_capacity]
 
 
 # -------------------------------------------------------------------------
-# ????????
+# print player location and moeny
 def printPlayerStatus(User_id):
     result = checkPlayerStatus(User_id)
     print(f"Hello, {result[0][0]}. You are at {result[0][1]}. You have {result[0][2]} money in your poket.")
@@ -97,7 +97,7 @@ def printPlayerStatus(User_id):
 
 
 # --------------------------------------------------------------------------
-# ????????
+# player plane fuel amount
 def printPlaneStatus(User_id):
     result = checkAirplaneStatus(User_id)
     print(f"Hello, you have {result[0]}L fuel in your tank.")
@@ -106,7 +106,7 @@ def printPlaneStatus(User_id):
 
 
 # ---------------------------------------------------------------------------
-# ?????????
+# print tasks
 def printTaskStatus(User_id):
     result = checkTaskStatus(User_id, 0)
     # [(10, 6, 'John Reid Airport', 'Unity Health Specialty Care Heliport', 0, 'F'),
