@@ -1,13 +1,13 @@
 # 游戏入口方法
 # from flightGameBeta.controller.LoginAndRegisterDemo import slidePrint
 import LoginAndRegisterDemo as o
+from flightGameBeta.public_function.guess import guess_reddle
 from flightGameBeta.service.ForPlayService import flyNoTask, claculateDistance, calculateFule, settlement, getAirPortNF, \
     calculateHowMuchFuel, selectFuelTank
 from flightGameBeta.service.LogInService import user_exist, user_exist_mi
 from flightGameBeta.service.PlayerStatusCheckService import checkTaskStatus, checkPlayerStatus, checkAirplaneStatus
 import flightGameBeta.service.PlayerStatusCheckService as rz
 from flightGameBeta.service.RegitsterService import initUserAirplane
-from guess import guess_reddle
 
 
 def play():
