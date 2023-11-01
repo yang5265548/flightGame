@@ -31,7 +31,7 @@ def settlement(taskId):
     weatherDetail = getRandomWeather(weatherId);
     # print(weatherDetail)
     # Basic fuel consumption gold coins and weather fuel consumption gold coins are used to calculate the final fuel consumption gold coins
-    OilConsume = basicOilConsume * (1 - float(weatherDetail[0][3]));
+    OilConsume = basicOilConsume * (1 + float(weatherDetail[0][3]));
     Bounds = basicBounds * (1 + float(weatherDetail[0][4]));
     # Write the fuel consumption and money of the current task to the task table
     result = updateTaskCurrentOilAndMoney(OilConsume, Bounds, taskId, userId, weatherId);
@@ -159,12 +159,13 @@ def updateTaskCurrentOilAndMoney(oilConsume, amount, taskId, userId, weather_id)
 # currentLocation current location
 # TaskAmount task gold coins
 def updateUserCurrentAmountAndLocation(userId, TaskAmount, currentLocation):
-    currentLocation = currentLocation.replace('\'', '\\\'')
     result = None;
     if(TaskAmount is not None and currentLocation is not None):
+        currentLocation = currentLocation.replace('\'', '\\\'')
         sql = f"update User_flight_game set current_location = '{currentLocation}' , current_amount =  current_amount + {TaskAmount} where userId = {userId}"
         result = fun.oprateData(sql);
     elif(TaskAmount is None and currentLocation is not None):
+        currentLocation = currentLocation.replace('\'', '\\\'')
         sql = f"update User_flight_game set current_location = '{currentLocation}' where userId = {userId}"
         result = fun.oprateData(sql);
     elif(TaskAmount is None and currentLocation is None):

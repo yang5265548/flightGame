@@ -1,5 +1,5 @@
 # 游戏入口方法
-# from flightGameBeta.controller.LoginAndRegisterDemo import slidePrint
+#enter funchtion
 import LoginAndRegisterDemo as o
 from flightGameBeta.public_function.guess import guess_reddle
 from flightGameBeta.service.ForPlayService import flyNoTask, claculateDistance, calculateFule, settlement, getAirPortNF, \
@@ -7,7 +7,7 @@ from flightGameBeta.service.ForPlayService import flyNoTask, claculateDistance, 
 from flightGameBeta.service.LogInService import user_exist, user_exist_mi
 from flightGameBeta.service.PlayerStatusCheckService import checkTaskStatus, checkPlayerStatus, checkAirplaneStatus
 import flightGameBeta.service.PlayerStatusCheckService as rz
-from flightGameBeta.service.RegitsterService import initUserAirplane
+
 
 
 def play():
@@ -38,10 +38,11 @@ def play():
                             f"the next airport fuel price is {toAirportFuelPrice[0][2]} ,"
                             f"do you want to add the fule now : y/n")
                 canFuel = calculateHowMuchFuel(airplaneTypeId, currentfuel)
-
-                if ans == "Y" or ans == "y":
+                print("rest of fuel volum: ", canFuel)
+                totalFuel=float(currentamount) / float(fromAirportFuelPrice[0][2])
+                if (ans == "Y" or ans == "y") and totalFuel > 0:
                     ueserwanttoaddfuel = float(input(
-                        f"please enter the oil quantity(Current amount of money available for refueling: {float(currentamount) / float(fromAirportFuelPrice[0][2])} L): "))
+                        f"please enter the oil quantity(Current amount of money available for refueling: {totalFuel} L): "))
                     rz.updateUserAirplaneFlightGame(userid, 0, ueserwanttoaddfuel, 0)
                     continue
                 else:
@@ -57,10 +58,10 @@ def play():
                         airplanTypes = selectFuelTank(airplaneTypeId)
                         # 油箱大小
                         # Fuel tank size
-                        oilTank = airplanTypes[0][1]
+                        oilTank = airplanTypes[0][2]
                         # 重置用户飞机油量至满油
                         # Reset the user's aircraft fuel level to full
-                        rz.updateUserAirplaneFlightGame(userid, airplaneTypeId, oilTank, 2)
+                        rz.updateUserAirplaneFlightGame(userid, airplaneTypeId, oilTank, 0)
                         continue
 
 
@@ -117,7 +118,6 @@ while True:
                 else:
                     continue
             play()
-        # 调用是的逻辑
 
         else:
             play()
