@@ -37,7 +37,7 @@ def settlement(taskId):
     result = updateTaskCurrentOilAndMoney(OilConsume, Bounds, taskId, userId, weatherId);
 
     #Modify fuel quantity
-    rz.updateUserAirplaneFlightGame(userId, 0, OilConsume, 0)
+    rz.updateUserAirplaneFlightGame(userId, 0, OilConsume, 1)
 
     # Write current_amount, current_location to the user details table
     if(result is True):
@@ -81,7 +81,7 @@ def flyNoTask(userId, currentPlace, targetPlace):
     # Calculate fuel consumption based on distance
     basicOilConsume = distanceCount * 10;
     # Deduct aircraft fuel
-    result = rz.updateUserAirplaneFlightGame(userId, 0, basicOilConsume, 0)
+    result = rz.updateUserAirplaneFlightGame(userId, 0, basicOilConsume, 1)
     #Change current address to destination
     result = updateUserCurrentAmountAndLocation(userId, None, targetPlace);
     return result;
@@ -171,7 +171,6 @@ def updateUserCurrentAmountAndLocation(userId, TaskAmount, currentLocation):
         sql = f"update User_flight_game set log_time = current_timestamp  where userId = {userId}"
         result = fun.oprateData(sql);
     return result;
-
 
 
 
