@@ -2,7 +2,7 @@ import mysql.connector
 import flightGameBeta.public_function.GetPropertiesHandler as p
 import os
 
-# 必须要用os拼路径, 否则路径会找不到2
+
 path = os.path.join('../config', 'mysql.properties');
 properties = p.getProperties(path);
 connection = mysql.connector.connect(
@@ -28,7 +28,7 @@ def getResultList(sql):
 def oprateData(sql):
     cursor = connection.cursor();
     try:
-        # 执行插入操作
+
         cursor.execute(sql)
         connection.commit()
         print("success")
