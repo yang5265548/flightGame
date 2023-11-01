@@ -45,30 +45,10 @@ def slidePrint(title):
     print('\n');
     time.sleep(0.002);
 
-#游戏进行时
-def fly(user):
-    if (user[5] is not None):
-        # 根据userID查询玩家未完成的任务
-        # tasks = PlayerStatusCheckService.checkTaskStatus(user[0],0);
-        tasks = PlayerStatusCheckService.checkTaskStatus(11, 0);
-        print(tasks[0])
-        print(f"new task {tasks[0][5]}: ", tasks[0][2], "to", tasks[0][3])
-        # 选择目标机场 给出目标机场
-        # 询问是否起飞, 1起飞 2等待
-        # 选1判断油量是否足够,足够,结算
-        # 不够,询问是否加油 1加油 2不加
-        # 选1加油,扣钱加油,起飞结算
-        # 选2不加,询问是否仍然起飞,1起飞 2等待
-        # 选1 坠毁 (循环回登陆成功)
-    else:
-        print();
-        # 生成任务
-        # fly()
-
 
 #login 1
 def loginAndRegister():
-    slidePrint("✈✈✈✈✈✈✈✈✈✈✈✈✈Welcome to YM2Z Global Relief✈✈✈✈✈✈✈✈✈✈✈✈✈")
+    slidePrint("✈✈✈✈✈✈✈✈✈✈✈✈✈welcome to Emergency transportation✈✈✈✈✈✈✈✈✈✈✈✈✈")
     choice = input("1. log in                   2. register\nplease input your choice:");
     userDetail = login(choice, None,None);
     if(userDetail[0][5] is None):
@@ -79,7 +59,7 @@ def loginAndRegister():
         countryNameNumber = int(input("input countryName number: "));
         countryName = countryNames[countryNameNumber]
         tasks = RegitsterService.initTask(countryName, userDetail[0][0]);
-        #获取 第一个数组的from
+        # Get the from of the first array
         airportFirstTask = tasks[0][3];
         ForPlayService.updateUserCurrentAmountAndLocation(userDetail[0][0], None, airportFirstTask);
         ForPlayService.updateUserCurrentAmountAndLocation(userDetail[0][0], None, None);
